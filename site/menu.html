@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Menu — Brew & Bean</title>
+  <meta name="description" content="Freshly brewed. Expertly crafted. Always delicious. Explore the Brew & Bean handcrafted coffee and artisan snack menu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="siteNav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+        <span>Brew & Bean</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link active">Menu</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="menu.html" class="nav-icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+        <a href="cart.html" class="nav-icon-btn" aria-label="Shopping Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="nav-cart-badge" data-cart-badge>2</span>
+        </a>
+        <a href="profile.html" class="nav-avatar-btn" aria-label="User Profile">
+          <span>IM</span>
+        </a>
+        <button class="nav-hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <a href="index.html">Home</a>
+    <a href="menu.html" class="active">Menu</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Log In</a>
+    <a href="profile.html">My Profile</a>
+  </div>
+
+  <!-- ============ MENU HEADER ============ -->
+  <main class="container" style="padding-bottom: 5rem;">
+    <div class="page-header" data-reveal="fade-up">
+      <h1 class="page-title">Our Menu</h1>
+      <p class="page-subtitle">Freshly brewed. Expertly crafted. Always delicious.</p>
+    </div>
+
+    <!-- ============ AI SMART MENU RECOMMENDATION & SOMMELIER ============ -->
+    <section class="ai-sommelier-section" id="aiSommelierSection" data-reveal="fade-up">
+      <div class="ai-sommelier-header">
+        <div class="ai-sommelier-title-wrap">
+          <div class="ai-sommelier-icon">☕</div>
+          <div>
+            <h2 class="ai-sommelier-title">AI Taste Sommelier &amp; Pairings</h2>
+            <p class="ai-sommelier-subtitle">Personalized recommendations crafted by our intelligent coffee sensory engine</p>
+          </div>
+        </div>
+        <div class="ai-badge-pill" id="aiStatusBadge">
+          <span class="ai-badge-dot"></span>
+          <span>Claude AI Powered</span>
+        </div>
+      </div>
+
+      <!-- Mood & Taste Chips -->
+      <div class="ai-mood-chips-label">Select Your Mood / Taste Vibe:</div>
+      <div class="ai-mood-chips-grid" id="aiMoodChips">
+        <button class="ai-mood-chip active" data-ai-mood="energy">⚡ Need Energy &amp; Focus</button>
+        <button class="ai-mood-chip" data-ai-mood="sweet">🍫 Sweet &amp; Comforting</button>
+        <button class="ai-mood-chip" data-ai-mood="iced">🧊 Chilled &amp; Refreshing</button>
+        <button class="ai-mood-chip" data-ai-mood="calm">🌿 Calming &amp; Spiced</button>
+        <button class="ai-mood-chip" data-ai-mood="pairing">🥐 Artisan Coffee + Pastry Duo</button>
+        <button class="ai-mood-chip" data-ai-mood="budget">🏷️ Under ₹150</button>
+      </div>
+
+      <!-- Custom Natural Language Query -->
+      <form class="ai-prompt-form" id="aiPromptForm">
+        <div class="ai-prompt-input-wrap">
+          <span class="ai-prompt-icon">✨</span>
+          <input type="text" class="ai-prompt-input" id="aiPromptInput" placeholder="Tell Claude what you feel like... (e.g. 'I want something sweet with chocolate for studying')">
+        </div>
+        <button type="submit" class="ai-prompt-btn" id="aiSubmitBtn">
+          <span>Get Smart Recommendation</span>
+          <span>→</span>
+        </button>
+      </form>
+
+      <!-- Dynamic Recommendation Display Card -->
+      <div class="ai-rec-result" id="aiRecResult">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+    </section>
+
+    <!-- CATEGORY FILTER PILLS -->
+    <div class="filter-pills-wrap" data-reveal="fade-up" style="--reveal-delay: 100ms;">
+
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="coffee">Coffee</button>
+      <button class="filter-pill" data-filter="tea">Tea</button>
+      <button class="filter-pill" data-filter="snacks">Snacks</button>
+      <button class="filter-pill" data-filter="desserts">Desserts</button>
+    </div>
+
+    <!-- PRODUCT GRID (Matching Mockup) -->
+    <div class="product-grid" id="menuGrid" data-reveal-stagger>
+      <!-- 1. Espresso -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=espresso" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=800&q=80" alt="Espresso" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=espresso">Espresso</a></h3>
+            <div class="product-price">₹ 120</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="espresso" aria-label="Add Espresso to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 2. Cappuccino -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=cappuccino" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=800&q=80" alt="Cappuccino" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=cappuccino">Cappuccino</a></h3>
+            <div class="product-price">₹ 150</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="cappuccino" aria-label="Add Cappuccino to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 3. Latte -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=latte" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80" alt="Latte" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=latte">Latte</a></h3>
+            <div class="product-price">₹ 160</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="latte" aria-label="Add Latte to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 4. Americano -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=americano" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=800&q=80" alt="Americano" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=americano">Americano</a></h3>
+            <div class="product-price">₹ 130</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="americano" aria-label="Add Americano to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 5. Iced Coffee -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=iced-coffee" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80" alt="Iced Coffee" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=iced-coffee">Iced Coffee</a></h3>
+            <div class="product-price">₹ 170</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="iced-coffee" aria-label="Add Iced Coffee to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 6. Mocha -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=mocha" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=800&q=80" alt="Mocha" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=mocha">Mocha</a></h3>
+            <div class="product-price">₹ 180</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="mocha" aria-label="Add Mocha to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 7. Chocolate Muffin -->
+      <div class="product-card" data-category="desserts">
+        <a href="product.html?id=chocolate-muffin" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80" alt="Chocolate Muffin" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=chocolate-muffin">Chocolate Muffin</a></h3>
+            <div class="product-price">₹ 120</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="chocolate-muffin" aria-label="Add Chocolate Muffin to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 8. Butter Croissant -->
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=butter-croissant" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Butter Croissant" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=butter-croissant">Butter Croissant</a></h3>
+            <div class="product-price">₹ 110</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="butter-croissant" aria-label="Add Butter Croissant to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- 9. Artisan Masala Chai -->
+      <div class="product-card" data-category="tea">
+        <a href="product.html?id=masala-chai" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80" alt="Artisan Masala Chai" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=masala-chai">Artisan Masala Chai</a></h3>
+            <div class="product-price">₹ 90</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="masala-chai" aria-label="Add Artisan Masala Chai to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- Food -->
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=margherita-pizza" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Margherita Pizza" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=margherita-pizza">Margherita Pizza</a></h3>
+            <div class="product-price">₹ 249</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="margherita-pizza" aria-label="Add Margherita Pizza to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=farmhouse-pizza" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Farmhouse Pizza" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=farmhouse-pizza">Farmhouse Pizza</a></h3>
+            <div class="product-price">₹ 289</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="farmhouse-pizza" aria-label="Add Farmhouse Pizza to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=paneer-tikka-pizza" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Paneer Tikka Pizza" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=paneer-tikka-pizza">Paneer Tikka Pizza</a></h3>
+            <div class="product-price">₹ 319</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="paneer-tikka-pizza" aria-label="Add Paneer Tikka Pizza to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=classic-veg-burger" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Classic Veg Burger" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=classic-veg-burger">Classic Veg Burger</a></h3>
+            <div class="product-price">₹ 149</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="classic-veg-burger" aria-label="Add Classic Veg Burger to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=double-patty-burger" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Double Patty Veg Burger" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=double-patty-burger">Double Patty Veg Burger</a></h3>
+            <div class="product-price">₹ 199</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="double-patty-burger" aria-label="Add Double Patty Veg Burger to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=paneer-crunch-burger" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Paneer Crunch Burger" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=paneer-crunch-burger">Paneer Crunch Burger</a></h3>
+            <div class="product-price">₹ 189</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="paneer-crunch-burger" aria-label="Add Paneer Crunch Burger to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=french-fries" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80" alt="French Fries" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=french-fries">French Fries</a></h3>
+            <div class="product-price">₹ 99</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="french-fries" aria-label="Add French Fries to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=peri-peri-fries" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80" alt="Peri Peri Fries" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=peri-peri-fries">Peri Peri Fries</a></h3>
+            <div class="product-price">₹ 119</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="peri-peri-fries" aria-label="Add Peri Peri Fries to Cart">+</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="snacks">
+        <a href="product.html?id=cheesy-fries" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80" alt="Cheesy Fries" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=cheesy-fries">Cheesy Fries</a></h3>
+            <div class="product-price">₹ 149</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="cheesy-fries" aria-label="Add Cheesy Fries to Cart">+</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Brew & Bean</h3>
+          <p>Serving artisanal coffee, comforting bites, and heartfelt moments in every single cup since 2020.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="menu.html">Our Menu</a>
+          <a href="about.html">Our Story</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Visit Us</a>
+          <a href="download.html">Download Site ZIP</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem; margin-bottom: 0.5rem;">Mon – Sun</p>
+          <p style="color: #ffffff; font-weight: 600; font-size: 0.95rem;">8:00 AM – 11:00 PM</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem; margin-bottom: 0.4rem;">123 Green Park, Baghpat, Uttar Pradesh - 250609</p>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem;"><a href="tel:+919876543210">+91 98765 43210</a></p>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem;"><a href="mailto:hello@brewbean.in">hello@brewbean.in</a></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Brew & Bean. All rights reserved.</div>
+        <div>Crafted with warmth & coffee.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

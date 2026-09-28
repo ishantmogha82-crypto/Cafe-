@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brew & Bean — Good Coffee, Better Days</title>
+  <meta name="description" content="At Brew & Bean, we serve more than just coffee — we serve moments. Fresh brews, delicious bites and a cozy space for everyone.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="siteNav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+        <span>Brew & Bean</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="menu.html" class="nav-icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+        <a href="cart.html" class="nav-icon-btn" aria-label="Shopping Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="nav-cart-badge" data-cart-badge>2</span>
+        </a>
+        <a href="profile.html" class="nav-avatar-btn" aria-label="User Profile">
+          <span>IM</span>
+        </a>
+        <button class="nav-hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <a href="index.html" class="active">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Log In</a>
+    <a href="profile.html">My Profile</a>
+  </div>
+
+  <!-- ============ HERO SECTION ============ -->
+  <section class="hero-section">
+    <div class="hero-card">
+      <div class="hero-content" data-reveal="fade-up">
+        <h1 class="hero-title">Good Coffee<br><span class="highlight">Better Days</span></h1>
+        <p class="hero-desc">At Brew & Bean, we serve more than just coffee — we serve moments. Fresh brews, delicious bites and a cozy space for everyone.</p>
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="menu.html" class="btn btn-caramel btn-lg">Explore Menu <span class="btn-arrow">→</span></a>
+          <a href="menu.html#aiSommelierSection" class="btn btn-outline btn-lg" style="border-color: var(--caramel-gold); color: #ffffff; background: rgba(200, 138, 88, 0.15);">
+            ✨ AI Taste Sommelier
+          </a>
+          <div class="scroll-cue" aria-label="Scroll down to explore">
+            <div class="scroll-cue-mouse"><div class="scroll-cue-wheel"></div></div>
+            <span>Scroll to explore</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-controls">
+        <div class="hero-dots">
+          <span class="hero-dot active"></span>
+          <span class="hero-dot"></span>
+          <span class="hero-dot"></span>
+        </div>
+        <div class="hero-arrows">
+          <button class="hero-arrow-btn" aria-label="Previous Slide">‹</button>
+          <button class="hero-arrow-btn" aria-label="Next Slide">›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRUST STRIP -->
+    <div class="trust-strip">
+      <div class="trust-grid" data-reveal-stagger>
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h4>Freshly Brewed</h4>
+            <p>Every Single Morning</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h4>Premium Ingredients</h4>
+            <p><span data-counter="100" data-suffix="%">100%</span> Single-Origin</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h4>Cozy Ambience</h4>
+            <p>Rated <span data-counter="4.9" data-decimals="1">4.9</span>/5 ★</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUR STORY PREVIEW ============ -->
+  <section class="story-section">
+    <div class="story-grid">
+      <div class="story-left" data-reveal="fade-right">
+        <span class="eyebrow-badge">OUR STORY</span>
+        <h2 class="story-heading">More Than Just<br>A Café</h2>
+        <p class="story-body">We started Brew & Bean with a simple idea — to create a space where great coffee, good food and meaningful conversations come together.</p>
+        <p class="story-body">Since <span data-counter="2020">2020</span>, we've been serving our community with love, one cup at a time.</p>
+        <div class="story-cta-row">
+          <a href="about.html" class="btn btn-caramel">Our Story <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+
+      <div class="story-img-card" data-reveal="fade-left">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85" alt="Brew & Bean Cozy Café Interior" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED BREWS ============ -->
+  <section class="container" style="padding-top: 1rem; padding-bottom: 4rem;">
+    <div class="page-header" data-reveal="fade-up">
+      <span class="eyebrow-badge">FAVORITES</span>
+      <h2 class="page-title">Popular Brews</h2>
+      <p class="page-subtitle">Expertly crafted with passion, served hot and fresh.</p>
+    </div>
+
+    <div class="product-grid" data-reveal-stagger>
+      <!-- Espresso -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=espresso" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=800&q=80" alt="Espresso" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=espresso">Espresso</a></h3>
+            <div class="product-price">₹ 120</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="espresso" aria-label="Add Espresso to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- Cappuccino -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=cappuccino" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=800&q=80" alt="Cappuccino" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=cappuccino">Cappuccino</a></h3>
+            <div class="product-price">₹ 150</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="cappuccino" aria-label="Add Cappuccino to Cart">+</button>
+        </div>
+      </div>
+
+      <!-- Latte -->
+      <div class="product-card" data-category="coffee">
+        <a href="product.html?id=latte" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80" alt="Latte" loading="lazy">
+        </a>
+        <div class="product-info-row">
+          <div>
+            <h3 class="product-title"><a href="product.html?id=latte">Latte</a></h3>
+            <div class="product-price">₹ 160</div>
+          </div>
+          <button class="product-add-btn" data-quick-add data-id="latte" aria-label="Add Latte to Cart">+</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Brew & Bean</h3>
+          <p>Serving artisanal coffee, comforting bites, and heartfelt moments in every single cup since 2020.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="menu.html">Our Menu</a>
+          <a href="about.html">Our Story</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Visit Us</a>
+          <a href="download.html">Download Site ZIP</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem; margin-bottom: 0.5rem;">Mon – Sun</p>
+          <p style="color: #ffffff; font-weight: 600; font-size: 0.95rem;">8:00 AM – 11:00 PM</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem; margin-bottom: 0.4rem;">123 Green Park, Baghpat, Uttar Pradesh - 250609</p>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem;"><a href="tel:+919876543210">+91 98765 43210</a></p>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem;"><a href="mailto:hello@brewbean.in">hello@brewbean.in</a></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Brew & Bean. All rights reserved.</div>
+        <div>Crafted with warmth & coffee.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

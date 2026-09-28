@@ -1,0 +1,128 @@
+[
+  {
+    "id": "espresso",
+    "name": "Espresso",
+    "category": "coffee",
+    "price": 120,
+    "rating": 4.9,
+    "reviews": 98,
+    "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=800&q=80",
+    "description": "Intense and rich single or double shot of pure roasted Arabica espresso with thick golden crema.",
+    "tags": [
+      "Hot & Fresh",
+      "100% Arabica Beans"
+    ]
+  },
+  {
+    "id": "cappuccino",
+    "name": "Cappuccino",
+    "category": "coffee",
+    "price": 150,
+    "rating": 4.8,
+    "reviews": 124,
+    "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=800&q=80",
+    "description": "Rich espresso, steamed milk and velvety foam — the perfect balance of taste and comfort.",
+    "tags": [
+      "Hot & Fresh",
+      "100% Arabica Beans"
+    ]
+  },
+  {
+    "id": "latte",
+    "name": "Latte",
+    "category": "coffee",
+    "price": 160,
+    "rating": 4.7,
+    "reviews": 110,
+    "image": "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80",
+    "description": "Smooth, creamy steamed milk blended delicately over a rich double shot of espresso with subtle foam art.",
+    "tags": [
+      "Smooth & Creamy",
+      "Artisan Brew"
+    ]
+  },
+  {
+    "id": "americano",
+    "name": "Americano",
+    "category": "coffee",
+    "price": 130,
+    "rating": 4.6,
+    "reviews": 86,
+    "image": "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=800&q=80",
+    "description": "Classic espresso diluted with hot filtered water, retaining the full complex aromatics of the bean.",
+    "tags": [
+      "Bold & Crisp",
+      "Zero Sugar"
+    ]
+  },
+  {
+    "id": "iced-coffee",
+    "name": "Iced Coffee",
+    "category": "coffee",
+    "price": 170,
+    "rating": 4.9,
+    "reviews": 142,
+    "image": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80",
+    "description": "Slow-steeped cold brew served over crystal clear ice with a silky pour of fresh sweet cream.",
+    "tags": [
+      "Chilled & Refreshing",
+      "Slow Steeped"
+    ]
+  },
+  {
+    "id": "mocha",
+    "name": "Mocha",
+    "category": "coffee",
+    "price": 180,
+    "rating": 4.8,
+    "reviews": 130,
+    "image": "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=800&q=80",
+    "description": "Rich Belgian chocolate ganache paired with bold espresso, steamed whole milk and Belgian cocoa dust.",
+    "tags": [
+      "Belgian Chocolate",
+      "Indulgent"
+    ]
+  },
+  {
+    "id": "chocolate-muffin",
+    "name": "Chocolate Muffin",
+    "category": "desserts",
+    "price": 120,
+    "rating": 4.9,
+    "reviews": 84,
+    "image": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80",
+    "description": "Freshly baked double chocolate chip muffin with a soft gooey center and crunchy crust.",
+    "tags": [
+      "Baked Fresh Daily",
+      "Warm & Gooey"
+    ]
+  },
+  {
+    "id": "butter-croissant",
+    "name": "Butter Croissant",
+    "category": "snacks",
+    "price": 110,
+    "rating": 4.8,
+    "reviews": 95,
+    "image": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80",
+    "description": "Authentic French-style flaky butter croissant, baked golden every morning in our scratch bakery.",
+    "tags": [
+      "French Butter",
+      "Flaky Layers"
+    ]
+  },
+  {
+    "id": "masala-chai",
+    "name": "Artisan Masala Chai",
+    "category": "tea",
+    "price": 90,
+    "rating": 4.9,
+    "reviews": 160,
+    "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
+    "description": "Assam whole leaf tea brewed with fresh crushed cardamom, ginger, cloves, cinnamon and whole milk.",
+    "tags": [
+      "Handcrafted Spices",
+      "Warm Comfort"
+    ]
+  }
+]

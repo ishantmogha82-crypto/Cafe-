@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story — Brew & Bean</title>
+  <meta name="description" content="Learn the story of Brew & Bean — creating a warm community sanctuary with artisanal coffee and fresh baked bites since 2020.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="siteNav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+        <span>Brew & Bean</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="menu.html" class="nav-icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+        <a href="cart.html" class="nav-icon-btn" aria-label="Shopping Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="nav-cart-badge" data-cart-badge>2</span>
+        </a>
+        <a href="profile.html" class="nav-avatar-btn" aria-label="User Profile">
+          <span>IM</span>
+        </a>
+        <button class="nav-hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="about.html" class="active">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Log In</a>
+    <a href="profile.html">My Profile</a>
+  </div>
+
+  <!-- ============ STORY SECTION (Matching Mockup) ============ -->
+  <main class="story-section" style="padding-top: 4rem; padding-bottom: 5rem;">
+    <div class="story-grid">
+      <!-- Left Column: Story copy & illustration -->
+      <div class="story-left" data-reveal="fade-right">
+        <span class="eyebrow-badge">OUR STORY</span>
+        <h1 class="story-heading">More Than Just<br>A Café</h1>
+        <p class="story-body">We started Brew & Bean with a simple idea — to create a space where great coffee, good food and meaningful conversations come together.</p>
+        <p class="story-body">Since <span data-counter="2020">2020</span>, we've been serving our community with love, one cup at a time.</p>
+        <div class="story-cta-row">
+          <a href="menu.html" class="btn btn-caramel">Our Story <span class="btn-arrow">→</span></a>
+        </div>
+
+        <!-- Botanical leaf illustration SVG -->
+        <svg class="leaf-illustration" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 10 C30 30, 20 60, 50 90 C80 60, 70 30, 50 10 Z M50 15 C65 35, 70 60, 50 85 C30 60, 35 35, 50 15 Z"/>
+        </svg>
+      </div>
+
+      <!-- Right Column: Warm Cafe Interior Card -->
+      <div class="story-img-card" data-reveal="fade-left">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85" alt="Brew & Bean Ambiance and Seating" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Core Philosophy Cards -->
+    <div style="margin-top: 5rem;">
+      <div class="page-header" style="padding-bottom: 2rem;" data-reveal="fade-up">
+        <span class="eyebrow-badge">OUR PASSION</span>
+        <h2 class="page-title">What Makes Brew & Bean Special</h2>
+      </div>
+
+      <div class="product-grid" data-reveal-stagger>
+        <div class="product-card" style="padding: 2rem; align-items: flex-start;">
+          <div class="trust-icon-box" style="margin-bottom: 1.25rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <h3 style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">Artisan Roast Beans</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-body);">Ethically sourced from high-elevation estates, roasted fresh every week to preserve delicate floral and caramel notes.</p>
+        </div>
+
+        <div class="product-card" style="padding: 2rem; align-items: flex-start;">
+          <div class="trust-icon-box" style="margin-bottom: 1.25rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            </svg>
+          </div>
+          <h3 style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">Handcrafted With Love</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-body);">Every latte, pour-over, and cold brew is prepared by trained baristas dedicated to the art of coffee brewing.</p>
+        </div>
+
+        <div class="product-card" style="padding: 2rem; align-items: flex-start;">
+          <div class="trust-icon-box" style="margin-bottom: 1.25rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+          </div>
+          <h3 style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">Your Daily Haven</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-body);">A peaceful, sunlit sanctuary with high-speed WiFi, cozy seating, and warm acoustic background music.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Brew & Bean</h3>
+          <p>Serving artisanal coffee, comforting bites, and heartfelt moments in every single cup since 2020.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="menu.html">Our Menu</a>
+          <a href="about.html">Our Story</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Visit Us</a>
+          <a href="download.html">Download Site ZIP</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem; margin-bottom: 0.5rem;">Mon – Sun</p>
+          <p style="color: #ffffff; font-weight: 600; font-size: 0.95rem;">8:00 AM – 11:00 PM</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem; margin-bottom: 0.4rem;">123 Green Park, Baghpat, Uttar Pradesh - 250609</p>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem;"><a href="tel:+919876543210">+91 98765 43210</a></p>
+          <p style="color: var(--ink-white-muted); font-size: 0.92rem;"><a href="mailto:hello@brewbean.in">hello@brewbean.in</a></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Brew & Bean. All rights reserved.</div>
+        <div>Crafted with warmth & coffee.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

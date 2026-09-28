@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Admin & Kitchen Live Orders — Brew & Bean</title>
+  <meta name="description" content="Brew & Bean Cafe live operations command center and real-time order notification system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Custom Admin Specific Layouts */
+    .admin-login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #241d18 0%, #0e0c0b 100%);
+      padding: 1.5rem;
+    }
+    .admin-login-box {
+      max-width: 440px;
+      width: 100%;
+      background: #1c1714;
+      border: 1px solid rgba(200, 138, 88, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+      position: relative;
+    }
+    .admin-menu-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .admin-menu-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      background: rgba(0,0,0,0.3);
+      color: var(--ink-white-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .admin-menu-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.9rem;
+    }
+    .admin-menu-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .inquiry-card {
+      background: var(--bg-dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- ================= AUTHENTICATION GATE ================= -->
+  <!-- SCREEN 1: ADMIN LOGIN (Shown if not logged in) -->
+  <div id="adminLoginScreen" class="admin-login-screen">
+    <div class="admin-login-box">
+      <div class="auth-logo-center" style="margin-bottom: 1.25rem;">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+        <span>Brew & Bean</span>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span class="admin-badge-pill">Operations Control</span>
+        <h1 style="font-family: var(--font-serif); font-size: 1.6rem; color: #ffffff; margin: 0.6rem 0 0.2rem;">Cafe Admin Login</h1>
+        <p style="font-size: 0.85rem; color: #9c9288; margin: 0;">Access real-time kitchen orders & live notifications</p>
+      </div>
+
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <div class="form-input-container">
+            <svg class="form-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="email" id="adminEmail" class="form-input" placeholder="Admin email" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-input-container" style="position: relative;">
+            <svg class="form-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="adminPassword" class="form-input" placeholder="Admin Password" required autocomplete="current-password" style="padding-right: 2.75rem;">
+            <button type="button" id="adminPwToggleBtn" style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9c9288; cursor: pointer; padding: 0.25rem;" aria-label="Toggle password visibility">
+              <svg id="adminPwToggleIcon" style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="adminLoginError" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.82rem; margin-bottom: 1rem;"></div>
+
+        <button type="submit" class="btn btn-caramel btn-block btn-lg" id="adminLoginSubmitBtn">
+          Authorize Admin Access →
+        </button>
+      </form>
+      <div style="text-align: center; margin-top: 1rem; font-size: 0.82rem; color: #8c8278;">
+        <a href="index.html" style="color: var(--caramel-gold); text-decoration: underline;">← Return to Cafe Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: ADMIN LIVE DASHBOARD (Shown when logged in) -->
+  <div id="adminDashboardScreen" style="display: none;">
+
+    <!-- ============ ADMIN TOP NAVBAR ============ -->
+    <header class="admin-navbar">
+      <div class="admin-nav-inner">
+        <div class="admin-brand-wrap">
+          <a href="index.html" class="nav-logo">
+            <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+            <span>Brew & Bean</span>
+          </a>
+          <span class="admin-badge-pill">Admin Operations</span>
+          
+          <div class="live-indicator-chip" id="sseStatusChip">
+            <span class="pulse-dot"></span>
+            <span id="sseStatusText">Live Kitchen Stream Connected</span>
+          </div>
+        </div>
+
+        <div class="admin-nav-actions">
+          <!-- Audio Alert Toggle -->
+          <button class="admin-tool-btn active" id="audioToggleBtn" title="Toggle audio chime on new orders">
+            <span id="audioIcon">🔊</span>
+            <span id="audioText">Sound: ON</span>
+          </button>
+
+          <!-- Test Audio Chime -->
+          <button class="admin-tool-btn" id="testSoundBtn" title="Play test order chime">
+            <span>🔔</span>
+            <span>Test Chime</span>
+          </button>
+
+          <!-- Desktop Notifications -->
+          <button class="admin-tool-btn" id="desktopNotifBtn" title="Enable browser desktop notifications">
+            <span>🖥️</span>
+            <span id="desktopNotifText">Desktop Alerts</span>
+          </button>
+
+          <!-- Quick Simulate Order Demo Button -->
+          <button class="btn btn-caramel btn-sm" id="simulateOrderBtn" title="Simulate a live customer order to test notifications">
+            <span>⚡ Simulate Order</span>
+          </button>
+
+          <!-- Admin Profile & Logout -->
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem; border-left: 1px solid rgba(255,255,255,0.12); padding-left: 0.75rem;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--caramel-gold); color: #161311; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">
+              AD
+            </div>
+            <button class="admin-tool-btn" id="adminLogoutBtn" title="Log out from admin portal" style="color: #f87171;">
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ FLOATING LIVE NOTIFICATION BANNER ============ -->
+    <div id="liveOrderAlertBanner" class="admin-order-alert-banner">
+      <div class="alert-banner-header">
+        <div class="alert-banner-title">
+          <span>🛎️</span>
+          <span id="alertBannerHeading">New Food Order Received!</span>
+        </div>
+        <button class="alert-banner-close" id="closeAlertBanner" aria-label="Dismiss alert">✕</button>
+      </div>
+      <div class="alert-banner-body" id="alertBannerBody">
+        Order #104 placed by Guest Customer.
+      </div>
+      <div class="alert-banner-items" id="alertBannerItems">
+        2x Cappuccino, 1x Croissant
+      </div>
+      <div class="alert-banner-actions">
+        <button class="btn btn-caramel btn-sm" id="alertBannerViewBtn">View Order Details</button>
+        <button class="admin-tool-btn" id="alertBannerDismissBtn">Dismiss</button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN ADMIN DASHBOARD CONTENT ============ -->
+    <main class="admin-container">
+
+      <!-- 1. KPI STATS CARDS -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card alert-stat">
+          <div class="stat-header">
+            <span class="stat-label">Pending Orders</span>
+            <span class="stat-icon">🟡</span>
+          </div>
+          <div class="stat-value" id="kpiPending">0</div>
+          <div class="stat-meta">Needs kitchen attention</div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-header">
+            <span class="stat-label">In Kitchen</span>
+            <span class="stat-icon">🍳</span>
+          </div>
+          <div class="stat-value" id="kpiPreparing">0</div>
+          <div class="stat-meta">Currently preparing</div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Ready / Dispatched</span>
+            <span class="stat-icon">📦</span>
+          </div>
+          <div class="stat-value" id="kpiReady">0</div>
+          <div class="stat-meta">Awaiting pickup / delivery</div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Total Revenue</span>
+            <span class="stat-icon">💰</span>
+          </div>
+          <div class="stat-value" id="kpiRevenue">₹ 0</div>
+          <div class="stat-meta">Calculated from completed orders</div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Total Volume</span>
+            <span class="stat-icon">☕</span>
+          </div>
+          <div class="stat-value" id="kpiTotal">0</div>
+          <div class="stat-meta">Lifetime orders handled</div>
+        </div>
+      </div>
+
+      <!-- 2. NAVIGATION TABS & CONTROLS -->
+      <div class="admin-controls-bar">
+        <div class="admin-view-tabs">
+          <button class="admin-tab-btn active" data-admin-tab="orders">
+            <span>🛎️ Live Orders</span>
+            <span id="ordersTabCountBadge" style="background: rgba(255,255,255,0.2); padding: 0.1rem 0.45rem; border-radius: 10px; font-size: 0.72rem;">0</span>
+          </button>
+          <button class="admin-tab-btn" data-admin-tab="menu">
+            <span>☕ Menu Manager</span>
+          </button>
+          <button class="admin-tab-btn" data-admin-tab="messages">
+            <span>💬 Inquiries & Feedback</span>
+            <span id="messagesTabCountBadge" style="background: rgba(255,255,255,0.2); padding: 0.1rem 0.45rem; border-radius: 10px; font-size: 0.72rem;">0</span>
+          </button>
+        </div>
+
+        <!-- Orders Filters (Only visible on orders tab) -->
+        <div class="admin-filter-group" id="orderFiltersGroup">
+          <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+            <button class="admin-tool-btn active" data-status-filter="all">All</button>
+            <button class="admin-tool-btn" data-status-filter="pending" style="color: #fbbf24;">Pending</button>
+            <button class="admin-tool-btn" data-status-filter="preparing" style="color: #60a5fa;">Preparing</button>
+            <button class="admin-tool-btn" data-status-filter="ready" style="color: #34d399;">Ready</button>
+            <button class="admin-tool-btn" data-status-filter="completed">Completed</button>
+          </div>
+
+          <input type="text" id="adminOrderSearch" class="admin-search-input" placeholder="🔍 Search Order # or Name...">
+
+          <button class="admin-tool-btn" id="refreshOrdersBtn" title="Reload from server">
+            <span>↻ Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= TAB 1: LIVE ORDERS STREAM ================= -->
+      <section id="adminTabOrders">
+        <div class="admin-orders-grid" id="adminOrdersContainer">
+          <!-- Injected via admin JS -->
+          <div style="grid-column: 1 / -1; padding: 4rem 1rem; text-align: center; color: var(--ink-muted);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">☕</div>
+            <p>Connecting to Live Order Stream...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: MENU MANAGER ================= -->
+      <section id="adminTabMenu" style="display: none;">
+        <div style="background: var(--bg-dark-card); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem;">Cafe Menu Items</h3>
+            <button class="btn btn-caramel btn-sm" id="addNewMenuModalBtn">+ Add New Menu Item</button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="admin-menu-table">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Price (₹)</th>
+                  <th>Description</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminMenuTableBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: CUSTOMER INQUIRIES ================= -->
+      <section id="adminTabMessages" style="display: none;">
+        <div style="margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem;">Customer Inquiries & Messages</h3>
+          <button class="admin-tool-btn" id="refreshMessagesBtn">↻ Refresh Inquiries</button>
+        </div>
+        <div id="adminMessagesContainer">
+          <!-- Injected via JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= RECEIPT & KOT MODAL ================= -->
+  <div class="receipt-modal-backdrop" id="receiptModalBackdrop">
+    <div class="receipt-paper">
+      <div class="receipt-header">
+        <h2>BREW & BEAN</h2>
+        <p style="margin: 0; font-size: 0.8rem; color: #4b5563;">Artisanal Coffee & Roastery</p>
+        <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">123 Green Park, Baghpat, UP</p>
+        <p style="margin: 0.4rem 0 0; font-weight: 700; font-size: 0.85rem;" id="receiptOrderTitle">KITCHEN ORDER TICKET (KOT)</p>
+      </div>
+
+      <div style="font-size: 0.82rem; margin-bottom: 0.75rem; line-height: 1.4;">
+        <div><strong>Order:</strong> <span id="receiptOrderId">#101</span></div>
+        <div><strong>Time:</strong> <span id="receiptOrderTime">26 Sep 2026, 12:00 PM</span></div>
+        <div><strong>Customer:</strong> <span id="receiptCustomerName">Ishant Mogha</span></div>
+        <div><strong>Status:</strong> <span id="receiptOrderStatus">PENDING</span></div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div id="receiptItemsList">
+        <!-- Injected -->
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div style="font-size: 0.85rem;">
+        <div style="display: flex; justify-content: space-between;">
+          <span>Subtotal</span>
+          <span id="receiptSubtotal">₹ 270</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span>Delivery</span>
+          <span id="receiptDelivery">₹ 30</span>
+        </div>
+        <div class="receipt-total-row">
+          <span>GRAND TOTAL</span>
+          <span id="receiptTotal">₹ 300</span>
+        </div>
+      </div>
+
+      <div class="receipt-divider"></div>
+      <p style="text-align: center; font-size: 0.75rem; color: #6b7280; margin: 0.5rem 0 0;">
+        Thank you for brewing with us! ☕
+      </p>
+
+      <div class="receipt-modal-actions">
+        <button class="btn btn-caramel btn-block" id="printReceiptBtn">🖨️ Print Ticket</button>
+        <button class="btn btn-block" style="background: #e5e7eb; color: #111827;" id="closeReceiptBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADD MENU ITEM MODAL ================= -->
+  <div class="receipt-modal-backdrop" id="addMenuModalBackdrop">
+    <div class="admin-login-box" style="max-width: 480px;">
+      <h2 style="font-family: var(--font-serif); font-size: 1.4rem; color: #ffffff; margin-top: 0; margin-bottom: 1rem;">Add New Menu Item</h2>
+      <form id="addMenuForm">
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <input type="text" id="newMenuName" class="form-input" placeholder="Item Name (e.g. Vanilla Hazelnut Frappe)" required>
+        </div>
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <input type="number" id="newMenuPrice" class="form-input" placeholder="Price in ₹ (e.g. 180)" required min="10" step="1">
+        </div>
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <select id="newMenuCategory" class="form-input" style="background: rgba(0,0,0,0.35); color: #ffffff;">
+            <option value="coffee">Coffee</option>
+            <option value="tea">Tea</option>
+            <option value="bakery">Bakery</option>
+            <option value="desserts">Desserts</option>
+            <option value="snacks">Snacks</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <input type="text" id="newMenuDesc" class="form-input" placeholder="Short description of the item">
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="submit" class="btn btn-caramel btn-block">Save to Menu</button>
+          <button type="button" class="btn btn-block" style="background: rgba(255,255,255,0.1); color: #ffffff;" id="cancelMenuModalBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      // --- STATE & AUDIO ENGINE ---
+      let dashboardInitialized = false;
+      let isSoundEnabled = localStorage.getItem('brew_admin_sound') !== 'false';
+      let allOrders = [];
+      let currentFilter = 'all';
+      let activeTab = 'orders';
+      let eventSource = null;
+
+      // Web Audio API Synthesizer (Crystal Clear Pleasant Cafe Chime)
+      let audioCtx = null;
+      function playOrderChime() {
+        if (!isSoundEnabled) return;
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return;
+          if (!audioCtx) audioCtx = new AudioContext();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const now = audioCtx.currentTime;
+
+          // Note 1: E5 (659.25 Hz)
+          const osc1 = audioCtx.createOscillator();
+          const gain1 = audioCtx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(659.25, now);
+          gain1.gain.setValueAtTime(0, now);
+          gain1.gain.linearRampToValueAtTime(0.3, now + 0.04);
+          gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+          osc1.connect(gain1);
+          gain1.connect(audioCtx.destination);
+          osc1.start(now);
+          osc1.stop(now + 0.9);
+
+          // Note 2: G5 (783.99 Hz)
+          const osc2 = audioCtx.createOscillator();
+          const gain2 = audioCtx.createGain();
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(783.99, now + 0.16);
+          gain2.gain.setValueAtTime(0, now + 0.16);
+          gain2.gain.linearRampToValueAtTime(0.35, now + 0.2);
+          gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+          osc2.connect(gain2);
+          gain2.connect(audioCtx.destination);
+          osc2.start(now + 0.16);
+          osc2.stop(now + 1.2);
+
+          // Note 3: B5 (987.77 Hz) - Harmonic shimmer
+          const osc3 = audioCtx.createOscillator();
+          const gain3 = audioCtx.createGain();
+          osc3.type = 'sine';
+          osc3.frequency.setValueAtTime(987.77, now + 0.32);
+          gain3.gain.setValueAtTime(0, now + 0.32);
+          gain3.gain.linearRampToValueAtTime(0.25, now + 0.36);
+          gain3.gain.exponentialRampToValueAtTime(0.0001, now + 1.5);
+          osc3.connect(gain3);
+          gain3.connect(audioCtx.destination);
+          osc3.start(now + 0.32);
+          osc3.stop(now + 1.5);
+
+        } catch (e) {
+          console.log('Audio playback error:', e);
+        }
+      }
+
+      // Desktop Push Notification
+      function sendDesktopNotification(title, body) {
+        if (!('Notification' in window)) return;
+        if (Notification.permission === 'granted') {
+          new Notification(title, {
+            body: body,
+            icon: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=128&q=80'
+          });
+        }
+      }
+
+      // --- INITIALIZATION ---
+      const loginScreen = document.getElementById('adminLoginScreen');
+      const dashboardScreen = document.getElementById('adminDashboardScreen');
+
+      async function checkAuth() {
+        let authenticated = false;
+        try {
+          const response = await fetch('/api/admin/session');
+          if (response.ok) {
+            const data = await response.json();
+            authenticated = data.authenticated === true;
+          }
+        } catch (e) {}
+
+        if (authenticated) {
+          loginScreen.style.display = 'none';
+          dashboardScreen.style.display = 'block';
+          if (!dashboardInitialized) {
+            dashboardInitialized = true;
+            initDashboard();
+          }
+        } else {
+          dashboardInitialized = false;
+          if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+          }
+          loginScreen.style.display = 'flex';
+          dashboardScreen.style.display = 'none';
+        }
+      }
+
+      // Password visibility toggle
+      const pwToggleBtn = document.getElementById('adminPwToggleBtn');
+      const pwField = document.getElementById('adminPassword');
+      if (pwToggleBtn && pwField) {
+        pwToggleBtn.addEventListener('click', () => {
+          const isPw = pwField.getAttribute('type') === 'password';
+          pwField.setAttribute('type', isPw ? 'text' : 'password');
+          pwToggleBtn.style.color = isPw ? 'var(--caramel-gold)' : '#9c9288';
+        });
+      }
+
+      // Login Form Handling
+      const loginForm = document.getElementById('adminLoginForm');
+      const loginError = document.getElementById('adminLoginError');
+
+      if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = document.getElementById('adminEmail').value.trim();
+          const password = document.getElementById('adminPassword').value;
+          loginError.style.display = 'none';
+
+          try {
+            const res = await fetch('/api/admin/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+              // Request desktop notification permission on login
+              if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+              }
+
+              await checkAuth();
+            } else {
+              loginError.textContent = data.error || 'Invalid admin username or password.';
+              loginError.style.display = 'block';
+            }
+          } catch (err) {
+            loginError.textContent = 'Unable to connect to server. Please try again.';
+            loginError.style.display = 'block';
+          }
+        });
+      }
+
+      // Logout
+      const logoutBtn = document.getElementById('adminLogoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          try {
+            await fetch('/api/admin/logout', { method: 'POST' });
+          } finally {
+            if (eventSource) {
+              eventSource.close();
+              eventSource = null;
+            }
+            await checkAuth();
+          }
+        });
+      }
+
+      // --- DASHBOARD CORE & REAL-TIME SSE ---
+      function initDashboard() {
+        updateAudioBtnState();
+        fetchStats();
+        fetchOrders();
+        fetchMenu();
+        fetchMessages();
+        connectSSEStream();
+      }
+
+      // Connect to Server-Sent Events (SSE) stream
+      function connectSSEStream() {
+        if (eventSource) eventSource.close();
+
+        const sseChip = document.getElementById('sseStatusChip');
+        const sseText = document.getElementById('sseStatusText');
+
+        try {
+          eventSource = new EventSource('/api/admin/order-stream');
+
+          eventSource.onopen = () => {
+            if (sseChip) sseChip.classList.remove('disconnected');
+            if (sseText) sseText.textContent = 'Live Kitchen Stream Connected';
+          };
+
+          eventSource.onmessage = (event) => {
+            try {
+              const data = JSON.parse(event.data);
+              handleSSEEvent(data);
+            } catch (err) {
+              console.log('SSE Parse error:', err);
+            }
+          };
+
+          eventSource.onerror = () => {
+            if (sseChip) sseChip.classList.add('disconnected');
+            if (sseText) sseText.textContent = 'Reconnecting stream...';
+          };
+        } catch (e) {
+          console.log('SSE connection error:', e);
+        }
+      }
+
+      // Handle real-time incoming SSE events
+      function handleSSEEvent(data) {
+        if (!data) return;
+
+        if (data.type === 'NEW_ORDER') {
+          const order = data.order;
+          if (order) {
+            // 1. Play synthesized cafe chime
+            playOrderChime();
+
+            // 2. Add order to top of list
+            const existingIdx = allOrders.findIndex(o => o.id === order.id || o.orderId === order.id);
+            if (existingIdx > -1) {
+              allOrders[existingIdx] = order;
+            } else {
+              allOrders.unshift(order);
+            }
+
+            // 3. Update KPI and render
+            renderOrders(true, order.id);
+            fetchStats();
+
+            // 4. Show Floating Alert Banner
+            showOrderAlertBanner(order);
+
+            // 5. Send Desktop OS notification
+            const itemsStr = (order.items || []).map(i => `${i.qty}x ${i.name}`).join(', ');
+            sendDesktopNotification(
+              `🛎️ New Food Order #${order.id || order.orderId}!`,
+              `Customer: ${order.customer_name || 'Guest'} (₹${order.total}) • ${itemsStr}`
+            );
+          }
+        } else if (data.type === 'ORDER_STATUS_UPDATED') {
+          const ord = allOrders.find(o => o.id == data.orderId || o.orderId == data.orderId);
+          if (ord) {
+            ord.status = data.status;
+            renderOrders();
+            fetchStats();
+          }
+        } else if (data.type === 'NEW_MESSAGE') {
+          fetchMessages();
+          fetchStats();
+        }
+      }
+
+      // Show Floating Notification Banner
+      const alertBanner = document.getElementById('liveOrderAlertBanner');
+      const alertHeading = document.getElementById('alertBannerHeading');
+      const alertBody = document.getElementById('alertBannerBody');
+      const alertItems = document.getElementById('alertBannerItems');
+      const alertViewBtn = document.getElementById('alertBannerViewBtn');
+      const alertCloseBtn = document.getElementById('closeAlertBanner');
+      const alertDismissBtn = document.getElementById('alertBannerDismissBtn');
+
+      let currentBannerOrderId = null;
+
+      function showOrderAlertBanner(order) {
+        if (!alertBanner) return;
+        currentBannerOrderId = order.id || order.orderId;
+        const itemsList = (order.items || []).map(i => `${i.qty}× ${i.name}`).join(', ') || 'Artisanal Coffee';
+        
+        if (alertHeading) alertHeading.textContent = `🛎️ New Food Order #${currentBannerOrderId}!`;
+        if (alertBody) alertBody.textContent = `Order placed by ${order.customer_name || 'Guest Customer'} (₹${order.total || 0})`;
+        if (alertItems) alertItems.textContent = itemsList;
+
+        alertBanner.classList.add('show');
+
+        clearTimeout(alertBanner._timer);
+        alertBanner._timer = setTimeout(() => {
+          alertBanner.classList.remove('show');
+        }, 8000);
+      }
+
+      if (alertCloseBtn) alertCloseBtn.addEventListener('click', () => alertBanner.classList.remove('show'));
+      if (alertDismissBtn) alertDismissBtn.addEventListener('click', () => alertBanner.classList.remove('show'));
+      if (alertViewBtn) {
+        alertViewBtn.addEventListener('click', () => {
+          alertBanner.classList.remove('show');
+          if (currentBannerOrderId) {
+            const ord = allOrders.find(o => o.id == currentBannerOrderId || o.orderId == currentBannerOrderId);
+            if (ord) openReceiptModal(ord);
+          }
+        });
+      }
+
+      // --- SOUND & DESKTOP NOTIFICATION CONTROLS ---
+      const audioToggleBtn = document.getElementById('audioToggleBtn');
+      const audioText = document.getElementById('audioText');
+      const audioIcon = document.getElementById('audioIcon');
+      const testSoundBtn = document.getElementById('testSoundBtn');
+      const desktopNotifBtn = document.getElementById('desktopNotifBtn');
+      const desktopNotifText = document.getElementById('desktopNotifText');
+
+      function updateAudioBtnState() {
+        if (audioToggleBtn) {
+          if (isSoundEnabled) {
+            audioToggleBtn.classList.add('active');
+            if (audioIcon) audioIcon.textContent = '🔊';
+            if (audioText) audioText.textContent = 'Sound: ON';
+          } else {
+            audioToggleBtn.classList.remove('active');
+            if (audioIcon) audioIcon.textContent = '🔇';
+            if (audioText) audioText.textContent = 'Sound: OFF';
+          }
+        }
+      }
+
+      if (audioToggleBtn) {
+        audioToggleBtn.addEventListener('click', () => {
+          isSoundEnabled = !isSoundEnabled;
+          localStorage.setItem('brew_admin_sound', isSoundEnabled);
+          updateAudioBtnState();
+          if (isSoundEnabled) playOrderChime();
+        });
+      }
+
+      if (testSoundBtn) {
+        testSoundBtn.addEventListener('click', () => {
+          playOrderChime();
+        });
+      }
+
+      if (desktopNotifBtn) {
+        desktopNotifBtn.addEventListener('click', async () => {
+          if (!('Notification' in window)) {
+            alert('Your browser does not support desktop notifications.');
+            return;
+          }
+          const perm = await Notification.requestPermission();
+          if (perm === 'granted') {
+            if (desktopNotifText) desktopNotifText.textContent = 'Alerts: Active ✓';
+            desktopNotifBtn.classList.add('active');
+            sendDesktopNotification('Brew & Bean Admin', 'Desktop notifications are enabled for new orders!');
+          } else {
+            alert('Desktop notification permission was denied.');
+          }
+        });
+      }
+
+      // --- SIMULATE LIVE ORDER BUTTON ---
+      const simulateBtn = document.getElementById('simulateOrderBtn');
+      if (simulateBtn) {
+        simulateBtn.addEventListener('click', async () => {
+          simulateBtn.disabled = true;
+          simulateBtn.textContent = '⏳ Simulating...';
+          try {
+            await fetch('/api/admin/simulate-order', { method: 'POST' });
+          } catch (e) {
+            console.log('Simulate err:', e);
+          }
+          setTimeout(() => {
+            simulateBtn.disabled = false;
+            simulateBtn.innerHTML = '<span>⚡ Simulate Order</span>';
+          }, 800);
+        });
+      }
+
+      // --- FETCH STATS & ORDERS ---
+      async function fetchStats() {
+        try {
+          const res = await fetch('/api/admin/stats');
+          const data = await res.json();
+          if (data) {
+            if (document.getElementById('kpiPending')) document.getElementById('kpiPending').textContent = data.pendingOrders || 0;
+            if (document.getElementById('kpiPreparing')) document.getElementById('kpiPreparing').textContent = data.preparingOrders || 0;
+            if (document.getElementById('kpiReady')) document.getElementById('kpiReady').textContent = data.readyOrders || 0;
+            if (document.getElementById('kpiRevenue')) document.getElementById('kpiRevenue').textContent = `₹ ${data.totalRevenue || 0}`;
+            if (document.getElementById('kpiTotal')) document.getElementById('kpiTotal').textContent = data.totalOrders || 0;
+            if (document.getElementById('messagesTabCountBadge')) document.getElementById('messagesTabCountBadge').textContent = data.messagesCount || 0;
+          }
+        } catch (e) {}
+      }
+
+      async function fetchOrders() {
+        try {
+          const res = await fetch('/api/orders');
+          const data = await res.json();
+          allOrders = Array.isArray(data) ? data : (data.data || []);
+          renderOrders();
+        } catch (e) {
+          const container = document.getElementById('adminOrdersContainer');
+          if (container) {
+            container.innerHTML = '<div style="grid-column: 1/-1; padding: 2rem; text-align: center; color: var(--ink-muted);">Unable to load orders. Ensure server is active on http://localhost:3000</div>';
+          }
+        }
+      }
+
+      // Render Orders in Grid
+      function renderOrders(highlightLatest = false, latestId = null) {
+        const container = document.getElementById('adminOrdersContainer');
+        const badge = document.getElementById('ordersTabCountBadge');
+        if (!container) return;
+
+        let filtered = allOrders;
+
+        // Apply Status Filter
+        if (currentFilter !== 'all') {
+          filtered = filtered.filter(o => (o.status || 'pending').toLowerCase() === currentFilter);
+        }
+
+        // Apply Search Filter
+        const searchInput = document.getElementById('adminOrderSearch');
+        if (searchInput && searchInput.value.trim()) {
+          const q = searchInput.value.trim().toLowerCase();
+          filtered = filtered.filter(o => {
+            const idMatch = String(o.id || o.orderId).includes(q);
+            const nameMatch = (o.customer_name || '').toLowerCase().includes(q);
+            return idMatch || nameMatch;
+          });
+        }
+
+        if (badge) badge.textContent = allOrders.length;
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; padding: 3.5rem 1rem; text-align: center; background: var(--bg-dark-card); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.06);">
+              <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">☕</div>
+              <h4 style="color: #ffffff; margin-bottom: 0.35rem;">No orders found</h4>
+              <p style="color: var(--ink-soft); font-size: 0.88rem; margin: 0;">Click "⚡ Simulate Order" above to place a live test order!</p>
+            </div>
+          `;
+          return;
+        }
+
+        let html = '';
+        filtered.forEach(ord => {
+          const orderId = ord.id || ord.orderId;
+          const isHighlight = highlightLatest && orderId == latestId;
+          const status = (ord.status || 'pending').toLowerCase();
+          const customerName = ord.customer_name || (ord.customer && (ord.customer.name || ord.customer.email)) || 'Guest Customer';
+          const items = Array.isArray(ord.items) ? ord.items : [];
+          const initials = customerName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'GC';
+
+          const dateStr = ord.createdAt || ord.created_at ? new Date(ord.createdAt || ord.created_at).toLocaleTimeString('en-IN', {
+            hour: '2-digit',
+            minute: '2-digit'
+          }) : 'Just now';
+
+          let itemsHtml = '';
+          items.forEach(it => {
+            itemsHtml += `
+              <div class="order-item-row">
+                <div><span class="order-item-qty">${it.qty || 1}×</span> <span>${it.name}</span> ${it.size ? `<span style="font-size: 0.75rem; color: var(--ink-faint);">(${it.size})</span>` : ''}</div>
+                <div>₹ ${(it.price || 0) * (it.qty || 1)}</div>
+              </div>
+            `;
+          });
+
+          // Action Buttons based on status
+          let actionBtns = '';
+          if (status === 'pending') {
+            actionBtns = `
+              <button class="admin-action-btn btn-prepare" data-order-action="preparing" data-id="${orderId}">🍳 Accept & Prepare</button>
+              <button class="admin-action-btn btn-receipt" data-order-action="receipt" data-id="${orderId}">🧾 Ticket</button>
+            `;
+          } else if (status === 'preparing') {
+            actionBtns = `
+              <button class="admin-action-btn btn-ready" data-order-action="ready" data-id="${orderId}">📦 Mark Ready</button>
+              <button class="admin-action-btn btn-receipt" data-order-action="receipt" data-id="${orderId}">🧾 Ticket</button>
+            `;
+          } else if (status === 'ready') {
+            actionBtns = `
+              <button class="admin-action-btn btn-complete" data-order-action="completed" data-id="${orderId}">🚀 Complete</button>
+              <button class="admin-action-btn btn-receipt" data-order-action="receipt" data-id="${orderId}">🧾 Ticket</button>
+            `;
+          } else {
+            actionBtns = `
+              <button class="admin-action-btn btn-receipt" style="grid-column: 1 / -1;" data-order-action="receipt" data-id="${orderId}">🧾 View Receipt</button>
+            `;
+          }
+
+          html += `
+            <div class="admin-order-card ${isHighlight ? 'new-order-highlight' : ''}" data-card-id="${orderId}">
+              <div class="order-card-top">
+                <div class="order-card-id-block">
+                  <h3>Order #${orderId}</h3>
+                  <span class="order-card-time">Received at ${dateStr}</span>
+                </div>
+                <span class="status-badge ${status}">${status.toUpperCase()}</span>
+              </div>
+
+              <div class="order-customer-box">
+                <div class="customer-avatar">${initials}</div>
+                <div class="customer-info">
+                  <h4>${customerName}</h4>
+                  <p>${ord.notes || 'Table / Delivery Order'}</p>
+                </div>
+              </div>
+
+              <div class="order-items-list-box">
+                ${itemsHtml || '<div class="order-item-row"><span>1× Artisan Specialty Item</span><span>₹ 150</span></div>'}
+              </div>
+
+              <div class="order-total-bar">
+                <span>Total Amount</span>
+                <span class="order-total-price">₹ ${ord.total || 0}</span>
+              </div>
+
+              <div class="order-action-buttons">
+                ${actionBtns}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+
+        // Bind Action Buttons
+        container.querySelectorAll('[data-order-action]').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const action = btn.getAttribute('data-order-action');
+            const id = btn.getAttribute('data-id');
+            const targetOrder = allOrders.find(o => (o.id == id || o.orderId == id));
+
+            if (action === 'receipt') {
+              if (targetOrder) openReceiptModal(targetOrder);
+            } else {
+              updateOrderStatus(id, action);
+            }
+          });
+        });
+      }
+
+      // Update Order Status via Backend
+      async function updateOrderStatus(id, newStatus) {
+        try {
+          const res = await fetch(`/api/admin/orders/${id}/status`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+          });
+          const data = await res.json();
+          if (res.ok) {
+            const ord = allOrders.find(o => o.id == id || o.orderId == id);
+            if (ord) ord.status = newStatus;
+            renderOrders();
+            fetchStats();
+          }
+        } catch (e) {
+          console.log('Update status err:', e);
+        }
+      }
+
+      // --- FILTER & SEARCH EVENTS ---
+      const statusFilterBtns = document.querySelectorAll('[data-status-filter]');
+      statusFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          statusFilterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-status-filter');
+          renderOrders();
+        });
+      });
+
+      const searchInput = document.getElementById('adminOrderSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          renderOrders();
+        });
+      }
+
+      const refreshOrdersBtn = document.getElementById('refreshOrdersBtn');
+      if (refreshOrdersBtn) {
+        refreshOrdersBtn.addEventListener('click', () => {
+          fetchOrders();
+          fetchStats();
+        });
+      }
+
+      // --- TABS SWITCHING ---
+      const tabBtns = document.querySelectorAll('[data-admin-tab]');
+      const tabOrders = document.getElementById('adminTabOrders');
+      const tabMenu = document.getElementById('adminTabMenu');
+      const tabMessages = document.getElementById('adminTabMessages');
+      const orderFiltersGroup = document.getElementById('orderFiltersGroup');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeTab = btn.getAttribute('data-admin-tab');
+
+          if (tabOrders) tabOrders.style.display = activeTab === 'orders' ? 'block' : 'none';
+          if (tabMenu) tabMenu.style.display = activeTab === 'menu' ? 'block' : 'none';
+          if (tabMessages) tabMessages.style.display = activeTab === 'messages' ? 'block' : 'none';
+          if (orderFiltersGroup) orderFiltersGroup.style.display = activeTab === 'orders' ? 'flex' : 'none';
+
+          if (activeTab === 'menu') fetchMenu();
+          if (activeTab === 'messages') fetchMessages();
+        });
+      });
+
+      // --- RECEIPT MODAL ---
+      const receiptBackdrop = document.getElementById('receiptModalBackdrop');
+      const closeReceiptBtn = document.getElementById('closeReceiptBtn');
+      const printReceiptBtn = document.getElementById('printReceiptBtn');
+
+      function openReceiptModal(order) {
+        if (!receiptBackdrop) return;
+        document.getElementById('receiptOrderId').textContent = `#${order.id || order.orderId}`;
+        document.getElementById('receiptOrderTime').textContent = new Date(order.createdAt || order.created_at || Date.now()).toLocaleString('en-IN');
+        document.getElementById('receiptCustomerName').textContent = order.customer_name || 'Guest Customer';
+        document.getElementById('receiptOrderStatus').textContent = (order.status || 'PENDING').toUpperCase();
+        document.getElementById('receiptSubtotal').textContent = `₹ ${order.subtotal || order.total}`;
+        document.getElementById('receiptDelivery').textContent = `₹ ${order.deliveryFee || order.delivery_fee || 0}`;
+        document.getElementById('receiptTotal').textContent = `₹ ${order.total}`;
+
+        const itemsBox = document.getElementById('receiptItemsList');
+        if (itemsBox) {
+          let html = '';
+          (order.items || []).forEach(item => {
+            html += `
+              <div class="receipt-item-row">
+                <span>${item.qty}x ${item.name}</span>
+                <span>₹ ${(item.price || 0) * (item.qty || 1)}</span>
+              </div>
+            `;
+          });
+          itemsBox.innerHTML = html;
+        }
+
+        receiptBackdrop.classList.add('open');
+      }
+
+      if (closeReceiptBtn) closeReceiptBtn.addEventListener('click', () => receiptBackdrop.classList.remove('open'));
+      if (printReceiptBtn) {
+        printReceiptBtn.addEventListener('click', () => {
+          window.print();
+        });
+      }
+      if (receiptBackdrop) {
+        receiptBackdrop.addEventListener('click', (e) => {
+          if (e.target === receiptBackdrop) receiptBackdrop.classList.remove('open');
+        });
+      }
+
+      // --- MENU MANAGEMENT ---
+      async function fetchMenu() {
+        const tbody = document.getElementById('adminMenuTableBody');
+        if (!tbody) return;
+        try {
+          const res = await fetch('/api/menu');
+          const menu = await res.json();
+          let html = '';
+          (menu || []).forEach(item => {
+            html += `
+              <tr>
+                <td><strong>${item.name}</strong></td>
+                <td><span class="status-badge" style="background: rgba(200,138,88,0.15); color: var(--caramel-gold);">${item.category}</span></td>
+                <td>₹ ${item.price}</td>
+                <td style="color: var(--ink-soft); max-width: 300px;">${item.description || '—'}</td>
+                <td style="text-align: right;">
+                  <button class="admin-tool-btn" style="color: #f87171;" onclick="window._deleteMenuItem(${item.id})">Delete</button>
+                </td>
+              </tr>
+            `;
+          });
+          tbody.innerHTML = html || '<tr><td colspan="5" style="text-align:center;">No menu items found</td></tr>';
+        } catch (e) {}
+      }
+
+      window._deleteMenuItem = async function(id) {
+        if (!confirm('Are you sure you want to remove this item from the cafe menu?')) return;
+        try {
+          await fetch(`/api/menu/${id}`, { method: 'DELETE' });
+          fetchMenu();
+        } catch (e) {}
+      };
+
+      // Add Menu Modal
+      const addMenuModal = document.getElementById('addMenuModalBackdrop');
+      const addMenuBtn = document.getElementById('addNewMenuModalBtn');
+      const cancelMenuBtn = document.getElementById('cancelMenuModalBtn');
+      const addMenuForm = document.getElementById('addMenuForm');
+
+      if (addMenuBtn && addMenuModal) addMenuBtn.addEventListener('click', () => addMenuModal.classList.add('open'));
+      if (cancelMenuBtn && addMenuModal) cancelMenuBtn.addEventListener('click', () => addMenuModal.classList.remove('open'));
+
+      if (addMenuForm) {
+        addMenuForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const name = document.getElementById('newMenuName').value;
+          const price = document.getElementById('newMenuPrice').value;
+          const category = document.getElementById('newMenuCategory').value;
+          const description = document.getElementById('newMenuDesc').value;
+
+          try {
+            await fetch('/api/menu', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, price, category, description })
+            });
+            addMenuForm.reset();
+            addMenuModal.classList.remove('open');
+            fetchMenu();
+          } catch (err) {
+            alert('Failed to save menu item');
+          }
+        });
+      }
+
+      // --- CUSTOMER MESSAGES ---
+      async function fetchMessages() {
+        const container = document.getElementById('adminMessagesContainer');
+        if (!container) return;
+        try {
+          const res = await fetch('/api/admin/messages');
+          const messages = await res.json();
+          if (!messages || messages.length === 0) {
+            container.innerHTML = '<div style="padding: 2.5rem; text-align: center; color: var(--ink-muted); background: var(--bg-dark-card); border-radius: var(--radius-md);">No customer messages yet.</div>';
+            return;
+          }
+
+          let html = '';
+          messages.forEach(msg => {
+            const timeStr = msg.created_at ? new Date(msg.created_at).toLocaleString('en-IN') : 'Recently';
+            html += `
+              <div class="inquiry-card">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <h4 style="margin: 0; font-size: 1.05rem; color: #ffffff;">${msg.name} <span style="font-weight: 400; font-size: 0.85rem; color: var(--caramel-gold);">&lt;${msg.email}&gt;</span></h4>
+                  <span style="font-size: 0.78rem; color: var(--ink-soft);">${timeStr}</span>
+                </div>
+                ${msg.subject ? `<div style="font-weight: 600; color: #eae5df; margin-bottom: 0.35rem; font-size: 0.92rem;">Subject: ${msg.subject}</div>` : ''}
+                <p style="color: #c8c0b8; font-size: 0.9rem; line-height: 1.5; margin: 0;">${msg.message}</p>
+              </div>
+            `;
+          });
+          container.innerHTML = html;
+        } catch (e) {}
+      }
+
+      const refreshMsgBtn = document.getElementById('refreshMessagesBtn');
+      if (refreshMsgBtn) refreshMsgBtn.addEventListener('click', fetchMessages);
+
+      // Start initial verification
+      checkAuth();
+
+    })();
+  </script>
+</body>
+</html>
